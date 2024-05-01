@@ -12,7 +12,7 @@ def main():
         play_again = input("\nDo you want to play again? (y/n): ")
 
 def play_game(name):
-    num_chances_input = input("Enter the number of chances (default is 15): ")
+    num_chances_input = input("Enter the number of chances (default 15): ")
     if num_chances_input == "":
         num_chances = 15
     else:
