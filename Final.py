@@ -2,15 +2,15 @@ import random
 import os
 
 def main():
-    play_again = 'y'
+    run_again = 'y'
     os.system('cls' if os.name == 'nt' else 'clear')
     name = input("Enter your name: ")
     print(f"Hey {name}! Let's play a game.")
 
-    while play_again.lower() == 'y':
-        play_game(name)
-        print("\n" * 15)  # Print 15 newline characters
-        play_again = input("Do you want to play again? (y/n): ")
+    while run_again.lower() == 'y':
+        run_game(name)
+        run_again = input("Do you want to play again? (y/n): ")
+        print("\n" * 20)
 
 def valid_chances_input():
     num_chances_input = input("Enter the number of chances (default 15): ")
@@ -25,7 +25,7 @@ def valid_chances_input():
         print("Invalid input. Enter an integer between 1 and 100.")
         return valid_chances_input()
 
-def play_game(name):
+def run_game(name):
     num_chances = valid_chances_input()
 
     n = random.randint(1, 200)
