@@ -78,15 +78,21 @@ def main():
         play_game(name)
         play_again = input("\nDo you want to play again? (y/n): ")
 
-def play_game(name):
+def get_valid_chances_input():
     num_chances_input = input("Enter the number of chances (default 15): ")
-    if num_chances_input == "":
-        num_chances = 15
-    else:
+    if num_chances_input.strip() == "":
+        return 15
+    try:
         num_chances = int(num_chances_input)
-        if num_chances < 1 or num_chances > 100:
-            print("Invalid input. Setting number of chances to default (15).")
-            num_chances = 15
+        if not 1 <= num_chances <= 100:
+            raise ValueError
+        return num_chances
+    except ValueError:
+        print("Invalid input. Please enter an integer between 1 and 100.")
+        return get_valid_chances_input()  # Recursive call for input validation
+
+def play_game(name):
+    num_chances = get_valid_chances_input()
 
     n = random.randint(1, 200)
     good_guesses = 0
@@ -104,11 +110,13 @@ def play_game(name):
             print("Quitting the game.")
             break
 
-        try:
-            guess = int(guess_str)
-            if not 1 <= guess <= 200:
-                raise ValueError("Invalid input. Enter an integer between 1 and 200.")
-        except ValueError:
+        if not guess_str.isdigit():  # Check if input is numeric
+            print("Invalid input. Please enter a number.")
+            error_guesses += 1
+            continue
+
+        guess = int(guess_str)
+        if not 1 <= guess <= 200:
             print("Invalid input. Enter an integer between 1 and 200.")
             error_guesses += 1
             continue
